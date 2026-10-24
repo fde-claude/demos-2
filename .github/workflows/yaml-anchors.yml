@@ -1,4 +1,4 @@
-name: Demo 02 - YAML Anchors
+name: YAML Anchors
 
 on:
   workflow_dispatch:
