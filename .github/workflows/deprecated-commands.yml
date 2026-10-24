@@ -10,7 +10,8 @@ jobs:
       - name: Generate output (Legacy Syntax)
         id: legacy_step
         run: |
-          echo "::set-output name=app_version::1.0.0"
+          echo "app_version=1.0.0" >> "$GITHUB_OUTPUT"
+
 
       - name: Consume output
         run: |
