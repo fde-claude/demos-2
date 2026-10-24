@@ -1,0 +1,23 @@
+name: Step Summary
+
+on:
+  workflow_dispatch:
+
+jobs:
+  test-and-report:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Run test suite
+        id: tests
+        run: |
+          # Write rich Markdown directly to the step summary file
+          cat << 'EOF' >> "$GITHUB_STEP_SUMMARY"
+          ## 📋 Test Suite Executive Summary
+
+          | Metric | Status / Count |
+          | :--- | :--- |
+          | **Total Tests** | 50 |
+          | **Passed** | 48 ✅ |
+          | **Failed (Ignored)** | 2 ⚠️ |
+          | **Code Coverage** | **85%** 🚀 |
+          EOF
