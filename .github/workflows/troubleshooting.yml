@@ -1,0 +1,21 @@
+name: Demo 04 - Troubleshooting
+
+on:
+  workflow_dispatch:
+
+jobs:
+  matrix-test:
+    name: test (${{ matrix.target }})
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        target: [alpha, beta, gamma]
+    steps:
+      - name: Execute target test
+        run: |
+          echo "Executing test for target: ${{ matrix.target }}"
+          # Simulate failure ONLY on target 'beta'
+          if [ "${{ matrix.target }}" = "beta" ]; then
+            echo "::error::Target 'beta' encountered a fatal crash!"
+            exit 1
+          fi
