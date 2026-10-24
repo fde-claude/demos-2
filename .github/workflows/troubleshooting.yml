@@ -8,13 +8,13 @@ jobs:
     name: test (${{ matrix.target }})
     runs-on: ubuntu-latest
     strategy:
+      fail-fast: false # Allows all legs to finish regardless of failures
       matrix:
         target: [alpha, beta, gamma]
     steps:
       - name: Execute target test
         run: |
           echo "Executing test for target: ${{ matrix.target }}"
-          # Simulate failure ONLY on target 'beta'
           if [ "${{ matrix.target }}" = "beta" ]; then
             echo "::error::Target 'beta' encountered a fatal crash!"
             exit 1
