@@ -8,9 +8,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Run test suite
-        id: tests
         run: |
-          # Write rich Markdown directly to the step summary file
           cat << 'EOF' >> "$GITHUB_STEP_SUMMARY"
           ## 📋 Test Suite Executive Summary
 
@@ -20,4 +18,17 @@ jobs:
           | **Passed** | 48 ✅ |
           | **Failed (Ignored)** | 2 ⚠️ |
           | **Code Coverage** | **85%** 🚀 |
+          EOF
+
+      # Multiple steps append sequentially to the same summary file
+      # Size Limit Rule: Max 1024 KiB (1 MB) per job
+      - name: Generate deployment checklist
+        if: ${{ !cancelled() }}
+        run: |
+          cat << 'EOF' >> "$GITHUB_STEP_SUMMARY"
+
+          ### 🚀 Deployment Readiness
+          - [x] Unit tests passing target threshold
+          - [x] Linter clean
+          - [ ] Manual staging sign-off required
           EOF
