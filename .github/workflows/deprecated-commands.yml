@@ -1,0 +1,17 @@
+name: Output Commands
+
+on:
+  workflow_dispatch:
+
+jobs:
+  output-migration:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Generate output (Legacy Syntax)
+        id: legacy_step
+        run: |
+          echo "::set-output name=app_version::1.0.0"
+
+      - name: Consume output
+        run: |
+          echo "Consumed Version: ${{ steps.legacy_step.outputs.app_version }}"

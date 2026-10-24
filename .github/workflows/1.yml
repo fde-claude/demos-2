@@ -2,9 +2,6 @@ name: Demo 01 Authoring
 
 on:
   workflow_dispatch: 
-  push:
-    branches:
-      - main
 
 jobs:
   build:
