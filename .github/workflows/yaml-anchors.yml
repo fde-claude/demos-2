@@ -1,0 +1,25 @@
+name: Demo 02 - YAML Anchors
+
+on:
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    env: &common_env
+      APP_ENV: staging
+      API_URL: https://api.example.com
+    steps:
+      - &print_step
+        name: Print environment
+        run: |
+          echo "Environment: $APP_ENV"
+          echo "API Endpoint: $API_URL"
+
+  test:
+    runs-on: ubuntu-latest
+    env: *common_env
+    steps:
+      - *print_step
+      - name: Run test validation
+        run: echo "Test job verified using shared anchor config."
