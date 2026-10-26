@@ -32,3 +32,9 @@ jobs:
 
       - name: Verify AWS Caller Identity
         run: aws sts get-caller-identity
+
+      # 3. LIVE DATA FETCH: Query AWS S3
+      - name: Fetch Real Data from AWS (List S3 Buckets)
+        run: |
+          echo "=== 📦 Fetching S3 Buckets from AWS via OIDC ==="
+          aws s3 ls
