@@ -1,4 +1,4 @@
-name: Demo 08 - Token Permissions
+name: Token Permissions
 
 on:
   workflow_dispatch:
@@ -18,6 +18,8 @@ jobs:
 
       # Core Rule 3: Verify unauthorized writes fail with 403
       - name: Attempt unauthorized issue write
+        permission:
+            issue: write
         env:
           GH_TOKEN: ${{ github.token }}
         run: |
