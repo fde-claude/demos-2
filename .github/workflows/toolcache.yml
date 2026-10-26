@@ -1,0 +1,20 @@
+name: Demo 07 - Toolcache & Setup Actions
+
+on:
+  workflow_dispatch:
+
+jobs:
+  runtime-demo:
+    runs-on: ubuntu-latest
+    steps:
+      # Best practice: Setup action handles resolution, PATH, and caching natively
+      - name: Setup Node.js via toolcache
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+
+      - name: Verify active Node runtime
+        run: |
+          echo "Active Version: $(node --version)"
+          echo "Node Path: $(which node)"
