@@ -3,6 +3,8 @@ name: Toolcache & Setup Actions
 on:
   workflow_dispatch:
 
+permissions: {}
+
 jobs:
   runtime-demo:
     runs-on: ubuntu-latest
