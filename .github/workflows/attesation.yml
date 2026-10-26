@@ -3,6 +3,12 @@ name: Demo 11 - Artifact Attestation
 on:
   workflow_dispatch:
 
+# Core Requirement: The 3 permissions required for cryptographic provenance signing
+permissions:
+  contents: read
+  id-token: write      # Mints OIDC token for Sigstore identity certificate
+  attestations: write  # Uploads the signed attestation bundle to GitHub
+
 jobs:
   build-and-release:
     runs-on: ubuntu-latest
@@ -10,13 +16,18 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v4
 
-      # Creates a simple release package
       - name: Package release artifact
         run: tar -czf release-artifact.tar.gz package.json
 
-      # Security Gap: Uploads artifact with zero cryptographic proof of provenance
-      - name: Upload artifact package
-        uses: actions/upload-artifact@v4
+      # Best Practice: Cryptographically sign the artifact using Sigstore
+      - name: Attest artifact provenance
+        uses: actions/attest@v4
         with:
-          name: release-artifact
-          path: release-artifact.tar.gz
+          subject-path: 'release-artifact.tar.gz'
+
+      # Cryptographically verify the signed provenance using GitHub CLI
+      - name: Verify artifact attestation
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          gh attestation verify release-artifact.tar.gz --repo "${GITHUB_REPOSITORY}"
