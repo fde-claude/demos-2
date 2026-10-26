@@ -18,3 +18,15 @@ jobs:
         run: |
           echo "Active Version: $(node --version)"
           echo "Node Path: $(which node)"
+
+      - name: Verify active Node runtime
+        run: |
+          echo "Active Version: $(node --version)"
+          echo "Node Path: $(which node)"
+
+      # Core GH-200 Concept: The Toolcache directory
+      - name: Inspect runner toolcache filesystem
+        run: |
+          echo "Toolcache location: $RUNNER_TOOL_CACHE"
+          echo "Preinstalled Node versions on this runner image:"
+          ls -la "$RUNNER_TOOL_CACHE/node"
