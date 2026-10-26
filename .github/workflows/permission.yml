@@ -18,8 +18,8 @@ jobs:
 
       # Core Rule 3: Verify unauthorized writes fail with 403
       - name: Attempt unauthorized issue write
-        permission:
-            issue: write
+        permissions:
+            issues: write
         env:
           GH_TOKEN: ${{ github.token }}
         run: |
