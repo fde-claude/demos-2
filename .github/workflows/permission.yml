@@ -12,14 +12,13 @@ jobs:
     # Core Rule 2: Job-level permissions REPAIR/REPLACE workflow permissions
     permissions:
       contents: read
+      issues: write
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
 
       # Core Rule 3: Verify unauthorized writes fail with 403
       - name: Attempt unauthorized issue write
-        permissions:
-            issues: read
         env:
           GH_TOKEN: ${{ github.token }}
         run: |
