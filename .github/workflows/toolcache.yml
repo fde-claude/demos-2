@@ -1,4 +1,4 @@
-name: Demo 07 - Toolcache & Setup Actions
+name: Toolcache & Setup Actions
 
 on:
   workflow_dispatch:
@@ -12,8 +12,7 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: '20'
-          cache: 'npm'
-
+          
       - name: Verify active Node runtime
         run: |
           echo "Active Version: $(node --version)"
