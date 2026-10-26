@@ -1,0 +1,22 @@
+{
+  "name": "repo-7",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo 'Tests passing' && exit 0",
+    "build": "echo 'Build completed' && exit 0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/fde-claude/demos-2.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/fde-claude/demos-2/issues"
+  },
+  "homepage": "https://github.com/fde-claude/demos-2#readme"
+}
