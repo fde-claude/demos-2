@@ -1,0 +1,30 @@
+name: Demo 08 - Token Permissions
+
+on:
+  workflow_dispatch:
+
+# Core Rule 1: Deny by default at the root level
+permissions: {}
+
+jobs:
+  least-privilege-job:
+    runs-on: ubuntu-latest
+    # Core Rule 2: Job-level permissions REPAIR/REPLACE workflow permissions
+    permissions:
+      contents: read
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      # Core Rule 3: Verify unauthorized writes fail with 403
+      - name: Attempt unauthorized issue write
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          if gh api --method POST "repos/${GITHUB_REPOSITORY}/issues" \
+            -f title="Unauthorized Probe" 2>/dev/null; then
+            echo "::error::Write unexpectedly succeeded! Token is over-privileged."
+            exit 1
+          else
+            echo "Write blocked (HTTP 403) as expected under least-privilege!"
+          fi
