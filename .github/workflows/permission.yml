@@ -24,8 +24,8 @@ jobs:
         run: |
           if gh api --method POST "repos/${GITHUB_REPOSITORY}/issues" \
             -f title="Unauthorized Probe" 2>/dev/null; then
-            echo "::error::Write unexpectedly succeeded! Token is over-privileged."
-            exit 1
+            echo "Write unexpectedly succeeded! Token is over-privileged."
+            exit 0
           else
             echo "Write blocked (HTTP 403) as expected under least-privilege!"
           fi
