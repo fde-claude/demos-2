@@ -1,4 +1,4 @@
-name: Demo 11 - Artifact Attestation
+name: Artifact Attestation
 
 on:
   workflow_dispatch:

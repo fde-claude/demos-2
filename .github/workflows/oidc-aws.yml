@@ -1,0 +1,27 @@
+name: AWS OIDC
+
+on:
+  workflow_dispatch:
+
+# Core Requirement: id-token: write is mandatory to mint the GitHub OIDC JWT
+permissions:
+  id-token: write
+  contents: read
+
+jobs:
+  cloud-auth:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      # Best Practice: Passwordless temporary STS credential exchange
+      - name: Configure AWS credentials via OIDC
+        uses: aws-actions/configure-aws-credentials@v4
+        with:
+          role-to-assume: arn:aws:iam::308639168576:role/GitHubActionsWorkflowRole # Replace with your IAM Role ARN
+          aws-region: us-east-1
+          audience: sts.amazonaws.com
+
+      - name: Verify AWS Caller Identity
+        run: aws sts get-caller-identity
