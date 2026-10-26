@@ -1,0 +1,22 @@
+name: Demo 11 - Artifact Attestation
+
+on:
+  workflow_dispatch:
+
+jobs:
+  build-and-release:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      # Creates a simple release package
+      - name: Package release artifact
+        run: tar -czf release-artifact.tar.gz package.json
+
+      # Security Gap: Uploads artifact with zero cryptographic proof of provenance
+      - name: Upload artifact package
+        uses: actions/upload-artifact@v4
+        with:
+          name: release-artifact
+          path: release-artifact.tar.gz

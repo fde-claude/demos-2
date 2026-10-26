@@ -1,4 +1,4 @@
-name: Demo 09 - Action Pinning
+name: Action Pinning
 
 on:
   workflow_dispatch:
